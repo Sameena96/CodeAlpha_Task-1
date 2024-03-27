@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #00FFFF;
+    }
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #C0C0C0;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex; /*  It will add flexbox */
+    }
+    .todo-image {
+        text-align: left;
+        margin-right: 10px; /* It will add margin for spacing */
+    }
+    h1 {
+        text-align: center;
+    }
+    input[type="text"] {
+        width: 80%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+    }
+    li.completed label {
+        text-decoration: line-through;
+        color: #888;
+    }
+    .task input[type="checkbox"] {
+        margin-right: 10px;
+    }
+    .task button {
+        margin-left: auto;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="todo-image">
+        <img src="to_do.jpg" alt="To-Do List Image">
+    </div>
+    <div>
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Enter task...">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="taskList"></ul>
+    </div>
+</div>
+
+<script>
+function addTask() {
+    var taskInput = document.getElementById('taskInput');
+    var taskText = taskInput.value.trim();
+    if (taskText !== '') {
+        var taskList = document.getElementById('taskList');
+        var li = document.createElement('li');
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.addEventListener('change', function() {
+            if (checkbox.checked) {
+                li.classList.add('completed');
+            } else {
+                li.classList.remove('completed');
+            }
+        });
+        var label = document.createElement('label');
+        label.textContent = taskText;
+        var removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', function() {
+            li.remove();
+        });
+        li.appendChild(checkbox);
+        li.appendChild(label);
+        li.appendChild(removeButton);
+        taskList.appendChild(li);
+        taskInput.value = '';
+    } else {
+        alert('Please enter a task!');
+    }
+}
+</script>
+</body>
+</html>
